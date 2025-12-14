@@ -26,11 +26,11 @@ export default function App() {
 
     const diceElements = dice.map(dieObject => 
         <Die 
-        key={dieObject.key}
+        key={dieObject.id}
         value={dieObject.value} 
         isHeld={dieObject.isHeld}
         id={dieObject.id}
-        hold={()=>{dieObject.hold}}
+        hold={()=>hold(dieObject.id)}
         />)
     return(
         <main>
