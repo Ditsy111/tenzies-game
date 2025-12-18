@@ -2,9 +2,13 @@ import "./App.css"
 import Die from "./Die"
 import { useState } from "react"
 import { nanoid } from "nanoid"
+import Confetti from "react-confetti"
 
 export default function App() {
     const[dice, setDice]=useState(generateAllDice())
+
+    const gameWon=dice.every(die=>die.isHeld===true)&&dice.every(die=>die.value===dice[0].value)
+
     function generateAllDice(){
         const newDice=[];
         for(let i=0; i<10; i++){
@@ -17,11 +21,21 @@ export default function App() {
         return newDice
     }
     function rollBack(){
-        setDice(generateAllDice())
+         setDice(oldDice => oldDice.map(die => 
+            die.isHeld ?
+                die :
+                { ...die, value: Math.ceil(Math.random() * 6) }
+        ))
     }
 
     function hold(id){
-        console.log(id)
+        setDice(oldDice=>(
+            oldDice.map(die=>(
+                die.id===id?
+                {...die, isHeld:!die.isHeld}
+                :die
+            ))
+        ))
     }
 
     const diceElements = dice.map(dieObject => 
@@ -34,10 +48,16 @@ export default function App() {
         />)
     return(
         <main>
+            {gameWon && (
+                <Confetti
+                    width={window.innerWidth}
+                    height={window.innerHeight}
+                />
+            )}
             <div className="dice-container">
                 {diceElements}
             </div>
-            <button className="roll-dice" onClick={rollBack}>Roll</button>
+            <button className="roll-dice" onClick={rollBack}>{gameWon?"New Game": "Roll"}</button>
         </main>
 
     )

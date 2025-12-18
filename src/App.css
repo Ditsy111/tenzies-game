@@ -45,21 +45,36 @@ button {
     justify-content: center;
     font-weight: bold;
 }
+.dice-container button:active {
+    border-color: #4DA6FF;
+    transform: scale(0.95);
+}
+
+.dice-container button:focus,
+.dice-container button:focus-visible {
+    outline: none;
+    border-color: transparent;
+}
 
 .dice-container button {
     height: 70px;
     width: 70px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.30);
     border-radius: 10px;
-    border: none;
+    border: 3px solid transparent;
     background-color: white;
     font-size: 1.75rem;
     font-weight: bold;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
+
 
 button.roll-dice {
     height: 50px;
-    width: 100px;
+    white-space: nowrap;
+    width: auto;
+    padding: 6px 21px;
     border: none;
     border-radius: 6px;
     background-color: #5035FF;
